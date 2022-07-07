@@ -12,8 +12,6 @@ from game.director.director import Director
 from game.services.keyboard_service import KeyboardService
 from game.services.video_service import VideoService
 from game.shared.point import Point
-
-
 from game.casting.line import Line
 from game.casting.terrain import Terrain
 
