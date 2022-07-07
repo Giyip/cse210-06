@@ -36,7 +36,7 @@ class VideoService:
         """
         for tank in tanks:
             self._draw_tank(tank)
-    
+
     def _draw_tank(self, tank):
         """Draws the given tank
 
@@ -69,7 +69,7 @@ class VideoService:
         pyray.draw_rectangle_pro(
             rect, new_position, 0, pyray.Color(r, g, b, a))
         #pyray.draw_rectangle(int(x), int(y), width, height, pyray.Color(r, g, b, a))
-        
+
     def draw_terrain(self, terrain):
         """Draws the terrain for the game
 

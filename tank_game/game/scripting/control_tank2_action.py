@@ -58,11 +58,11 @@ class ControlTank2Action(Action):
             tank1.set_velocity(velocity)
 
         # up
-        #if self._keyboard_service.is_key_down('w'):
+        #if self._keyboard_service.is_key_down('i'):
         #    self._direction = Point(0, -constants.CELL_SIZE)
 
         # down
-        #if self._keyboard_service.is_key_down('s'):
+        #if self._keyboard_service.is_key_down('k'):
         #    self._direction = Point(0, constants.CELL_SIZE)
 
         #if x != 0:

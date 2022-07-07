@@ -72,7 +72,6 @@ def main():
     script.add_action("input", ControlTank2Action(keyboard_service))
     script.add_action("update", MoveActorsAction())
     #script.add_action("update", HandleCollisionsAction(video_service))
-    #script.add_action("update", TrailGrowthAction())
     script.add_action("output", DrawActorsAction(video_service))
 
     director = Director(video_service)
