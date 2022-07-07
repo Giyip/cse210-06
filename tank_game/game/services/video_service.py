@@ -28,6 +28,92 @@ class VideoService:
         if self._debug == True:
             self._draw_grid()
 
+    def draw_tanks(self, tanks):
+        """Draws the given tanks
+
+        Args:
+            tanks (list<Tank>): the tanks to draw.
+        """
+        for tank in tanks:
+            self._draw_tank(tank)
+    
+    def _draw_tank(self, tank):
+        """Draws the given tank
+
+        Args:
+            tank (Tank): the tank to draw.
+        """
+        position = tank.get_position()
+        size = tank.get_size()
+        color = tank.get_color()
+        self._draw_rectangle(position, size, color)
+
+    def draw_healths(self, healths):
+        """Draws the given healths
+
+        Args:
+            healths (list<Health>): the healths to draw.
+        """
+        for health in healths:
+            self._draw_health(health)
+
+    def _draw_health(self, health):
+        """Draws the given player's health
+
+        Args:
+            health (Health): the health to draw.
+        """
+        pass
+
+    def _draw_rectangle(self, position, size, color):
+        """Draws a rectangle according to the given values
+        Args:
+            position (Point): The position of the rectangle.
+            size (Point): The size of the rectangle.
+            color (Color): The color for the line.
+        """
+        x = position.get_x()
+        y = position.get_y()
+        width = size.get_x()
+        height = size.get_y()
+        r, g, b, a = color.to_tuple()
+        #extracted_color = color.to_tuple()
+        #c = pyray.Color(extracted_color[0],extracted_color[1],extracted_color[2],extracted_color[3])
+        #print(f"x: {x}")
+        #print(f"y: {y}")
+        rect = pyray.Rectangle(x, y, width, height)
+        new_position = pyray.Vector2(0, 0)
+        pyray.draw_rectangle_pro(rect, new_position, 0, pyray.Color(r, g, b, a))
+        #pyray.draw_rectangle(int(x), int(y), width, height, pyray.Color(r, g, b, a))
+        
+    def draw_terrain(self, terrain):
+        """Draws the terrain for the game
+
+        Args:
+            terrain (Terrain): the terrain to draw.
+        """
+        for line in terrain.get_surface():
+            color = terrain.get_color()
+            self._draw_line(line, color)
+
+    def _draw_line(self, line, color):
+        """Draws the given line on the screen.
+
+        Args:
+            line (Line): The line to draw.
+            color (Color): The color for the line.
+        """
+        position1 = line.get_position1()
+        position2 = line.get_position2()
+        x1 = position1.get_x()
+        y1 = position1.get_y()
+        x2 = position2.get_x()
+        y2 = position2.get_y()
+        #extracted_color = color.to_tuple()
+        r, g, b, a = color.to_tuple()
+        pyray.draw_line(x1, y1, x2, y2, pyray.Color(r, g, b, a))
+        #pyray.draw_line(x1, y1, x2, y2, pyray.Color(extracted_color[0], extracted_color[1], extracted_color[2], extracted_color[3]))
+
     def draw_actor(self, actor, centered=False):
         """Draws the given actor's text on the screen.
 

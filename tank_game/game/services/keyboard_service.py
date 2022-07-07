@@ -1,6 +1,5 @@
 import pyray
 
-
 class KeyboardService:
     """Detects player input. 
 
