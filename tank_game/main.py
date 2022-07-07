@@ -2,6 +2,7 @@ import constants
 
 from game.casting.cast import Cast
 from game.casting.score import Score
+from game.casting.health import Health
 from game.casting.tank import Tank
 from game.scripting.script import Script
 from game.scripting.control_tank1_action import ControlTank1Action
@@ -52,10 +53,15 @@ def main():
     cast.add_actor("tanks", tank1)
     cast.add_actor("tanks", tank2)
     cast.add_actor("scores", Score("Player 1"))
-    aux_position = Point(constants.MAX_X-7*constants.CELL_SIZE, 0)
     score2 = Score("Player 2")
-    score2.set_position(aux_position)
+    score2.set_position(Point(constants.MAX_X-7*constants.CELL_SIZE, 0))
     cast.add_actor("scores", score2)
+    health1 = Health(100)
+    health2 = Health(100)
+    health1.set_position(Point(2, 20))
+    health2.set_position(Point(constants.MAX_X-7*constants.CELL_SIZE, 20))
+    cast.add_actor("healths", health1)
+    cast.add_actor("healths", health2)
 
     # start the game
     keyboard_service = KeyboardService()

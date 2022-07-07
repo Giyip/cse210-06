@@ -10,30 +10,22 @@ class Health(Actor):
 
     Attributes:
         _value (integer): the health's value
-        _size (Point): the rectangle's size, the visible representation of the health's value
     """
 
-    def __init__(self):
+    def __init__(self, health):
         """
             Constructor for a Health instance
         """
         super().__init__()
-        self._value = 100
-        self._size = Point(0, 0)
+        self._value = health
+        self.update_value(0)
 
     def get_value(self):
         """It returns the health's value
         Returns:
             integer: the health's value
         """
-        return self._value
-
-    def get_size(self):
-        """It returns the rectangle's size, the visible representation of the health's value
-        Returns:
-            Point: the rectangle's size
-        """
-        return self._size
+        return f"{self._value}%"
     
     def update_value(self, value):
         """Updates the health's value
@@ -41,4 +33,5 @@ class Health(Actor):
         Args:
             value (integer): The given value.
         """
-        self._value = value
+        self._value -= value
+        self.set_text(f"{self._value}%")

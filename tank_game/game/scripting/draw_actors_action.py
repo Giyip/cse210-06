@@ -38,7 +38,7 @@ class DrawActorsAction(Action):
 
         self._video_service.clear_buffer()
         self._video_service.draw_actors(scores)
-        self._video_service.draw_healths(healths)
+        self._video_service.draw_actors(healths)
         self._video_service.draw_actors(projectiles)
         self._video_service.draw_tanks(tanks)
         self._video_service.draw_terrain(terrain)

@@ -47,44 +47,6 @@ class VideoService:
         size = tank.get_size()
         color = tank.get_color()
         self._draw_rectangle(position, size, color)
-
-    def draw_healths(self, healths):
-        """Draws the given healths
-
-        Args:
-            healths (list<Health>): the healths to draw.
-        """
-        for health in healths:
-            self._draw_health(health)
-
-    def _draw_health(self, health):
-        """Draws the given player's health
-
-        Args:
-            health (Health): the health to draw.
-        """
-        pass
-
-    def _draw_rectangle(self, position, size, color):
-        """Draws a rectangle according to the given values
-        Args:
-            position (Point): The position of the rectangle.
-            size (Point): The size of the rectangle.
-            color (Color): The color for the line.
-        """
-        x = position.get_x()
-        y = position.get_y()
-        width = size.get_x()
-        height = size.get_y()
-        r, g, b, a = color.to_tuple()
-        #extracted_color = color.to_tuple()
-        #c = pyray.Color(extracted_color[0],extracted_color[1],extracted_color[2],extracted_color[3])
-        #print(f"x: {x}")
-        #print(f"y: {y}")
-        rect = pyray.Rectangle(x, y, width, height)
-        new_position = pyray.Vector2(0, 0)
-        pyray.draw_rectangle_pro(rect, new_position, 0, pyray.Color(r, g, b, a))
-        #pyray.draw_rectangle(int(x), int(y), width, height, pyray.Color(r, g, b, a))
         
     def draw_terrain(self, terrain):
         """Draws the terrain for the game
