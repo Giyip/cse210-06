@@ -51,11 +51,11 @@ def main():
     cast.add_actor("terrain", terrain)
     cast.add_actor("tanks", tank1)
     cast.add_actor("tanks", tank2)
-    cast.add_actor("score1", Score("Player 1"))
+    cast.add_actor("scores", Score("Player 1"))
     aux_position = Point(constants.MAX_X-7*constants.CELL_SIZE, 0)
     score2 = Score("Player 2")
     score2.set_position(aux_position)
-    cast.add_actor("score2", score2)
+    cast.add_actor("scores", score2)
 
     # start the game
     keyboard_service = KeyboardService()

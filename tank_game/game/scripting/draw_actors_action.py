@@ -34,7 +34,7 @@ class DrawActorsAction(Action):
         projectiles = cast.get_actors("projectiles")
         tanks = cast.get_actors("tanks")
         terrain = cast.get_first_actor("terrain")
-        #messages = cast.get_actors("messages")
+        # messages = cast.get_actors("messages")
 
         self._video_service.clear_buffer()
         self._video_service.draw_actors(scores)
@@ -42,5 +42,5 @@ class DrawActorsAction(Action):
         self._video_service.draw_actors(projectiles)
         self._video_service.draw_tanks(tanks)
         self._video_service.draw_terrain(terrain)
-        #self._video_service.draw_actors(messages, True)
+        # self._video_service.draw_actors(messages, True)
         self._video_service.flush_buffer()
