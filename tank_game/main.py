@@ -1,17 +1,21 @@
 import constants
 
-from game.shared.point import Point
-from game.casting.line import Line
-from game.casting.terrain import Terrain
 from game.casting.cast import Cast
-from game.services.keyboard_service import KeyboardService
-from game.services.video_service import VideoService
+from game.casting.score import Score
+from game.casting.tank import Tank
 from game.scripting.script import Script
+from game.scripting.control_tank1_action import ControlTank1Action
+from game.scripting.control_tank2_action import ControlTank2Action
+from game.scripting.move_actors_action import MoveActorsAction
 from game.scripting.draw_actors_action import DrawActorsAction
 from game.director.director import Director
-from game.casting.tank import Tank
-from game.scripting.control_tank1_action import ControlTank1Action
-from game.scripting.move_actors_action import MoveActorsAction
+from game.services.keyboard_service import KeyboardService
+from game.services.video_service import VideoService
+from game.shared.point import Point
+
+
+from game.casting.line import Line
+from game.casting.terrain import Terrain
 
 def main():
     # create positions for the terrain
@@ -36,17 +40,24 @@ def main():
     tank1.set_text("tank1")
 
     # create position for the player2
-    x2 = constants.X_POSITION_PLAYER2
-    y2 = terrain.calculate_new_position(x2)
+    position_t2 = terrain.calculate_new_position(constants.X_POSITION_PLAYER2)
+    x2 = position_t2.get_x()
+    y2 = position_t2.get_y() - constants.HEIGHT_PLAYER2
     size2 = Point(constants.WIDTH_PLAYER2, constants.HEIGHT_PLAYER2)
     tank2 = Tank(size2)
     tank2.set_position(Point(x2, y2))
+    tank1.set_text("tank2")
 
     # create the cast
     cast = Cast()
     cast.add_actor("terrain", terrain)
     cast.add_actor("tanks", tank1)
-    #cast.add_actor("tanks", tank2)
+    cast.add_actor("tanks", tank2)
+    cast.add_actor("score1", Score("Player 1"))
+    aux_position = Point(constants.MAX_X-7*constants.CELL_SIZE, 0)
+    score2 = Score("Player 2")
+    score2.set_position(aux_position)
+    cast.add_actor("score2", score2)
 
     # start the game
     keyboard_service = KeyboardService()
@@ -54,7 +65,7 @@ def main():
 
     script = Script()
     script.add_action("input", ControlTank1Action(keyboard_service))
-    #script.add_action("input", ControlCycle2Action(keyboard_service))
+    script.add_action("input", ControlTank2Action(keyboard_service))
     script.add_action("update", MoveActorsAction())
     #script.add_action("update", HandleCollisionsAction(video_service))
     #script.add_action("update", TrailGrowthAction())
