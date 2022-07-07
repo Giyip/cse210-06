@@ -38,10 +38,14 @@ class ControlTank1Action(Action):
             y1 = position.get_y()
             terrain = cast.get_first_actor("terrain")
             x2 = x1 - constants.CELL_SIZE
-            new_position = terrain.calculate_new_position(x2)
-            y2 = new_position.get_y() - constants.HEIGHT_PLAYER1
+            results = terrain.calculate_new_position(x2)
+            y = results["y"]
+            rotation = results["rotation"]
+            #angle = terrain.calculate_angle()
+            y2 = y - constants.HEIGHT_PLAYER1
             velocity = Point(x2-x1, y2-y1)
             tank1.set_velocity(velocity)
+            tank1.set_rotation(rotation)
 
         # right
         if self._keyboard_service.is_key_down('d'):
@@ -52,10 +56,13 @@ class ControlTank1Action(Action):
             y1 = position.get_y()
             terrain = cast.get_first_actor("terrain")
             x2 = x1 + constants.CELL_SIZE
-            new_position = terrain.calculate_new_position(x2)
-            y2 = new_position.get_y() - constants.HEIGHT_PLAYER1
+            results = terrain.calculate_new_position(x2)
+            y = results["y"]
+            rotation = results["rotation"]
+            y2 = y - constants.HEIGHT_PLAYER1
             velocity = Point(x2-x1, y2-y1)
             tank1.set_velocity(velocity)
+            tank1.set_rotation(rotation)
 
         # up
         #if self._keyboard_service.is_key_down('w'):
