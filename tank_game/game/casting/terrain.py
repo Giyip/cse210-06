@@ -1,3 +1,5 @@
+import math
+
 from game.casting.actor import Actor
 from game.shared.point import Point
 
@@ -40,6 +42,7 @@ class Terrain(Actor):
             Point: the calculated position
         """
         y = 0
+        rotation = 0
         for line in self._surface:
             position1 = line.get_position1()
             x1 = position1.get_x()
@@ -50,5 +53,29 @@ class Terrain(Actor):
             
             if x >= x1 and x <= x2:
                 y = line.calculate_y(x)
+                rotation = self._calculate_angle(line)
                 break
-        return Point(x, y)
+        return {"y": y, "rotation": rotation}
+
+    def _calculate_angle(self, line):
+        """Calculate the line's angle.
+
+        Args:
+            line (Line): The given line.
+        Returns:
+            float: the calculated angle
+        """
+        position1 = line.get_position1()
+        position2 = line.get_position2()
+        m = line.get_m()
+        x1 = position1.get_x()
+        y1 = position1.get_y()
+        x2 = position2.get_x()
+        y2 = position2.get_y()
+        h = math.sqrt(math.pow(y2 - y1, 2) + math.pow(x2 - x1, 2))
+        aux_angle = math.asin((y2 - y1) / h)
+        return aux_angle * 180 / math.pi
+        #if m >= 0:
+        #    return aux_angle * 180 / math.pi
+        #else:
+        #    return - aux_angle * 180 / math.pi

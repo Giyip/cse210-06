@@ -30,9 +30,9 @@ def main():
     terrain.set_text("terrain")
 
     # create position for the player1
-    position_t1 = terrain.calculate_new_position(constants.X_POSITION_PLAYER1)
-    x1 = position_t1.get_x()
-    y1 = position_t1.get_y() - constants.HEIGHT_PLAYER1
+    x1 = constants.X_POSITION_PLAYER1
+    results = terrain.calculate_new_position(x1)
+    y1 = results["y"] - constants.HEIGHT_PLAYER1
     size1 = Point(constants.WIDTH_PLAYER1, constants.HEIGHT_PLAYER1)
     tank1 = Tank(size1)
     tank1.set_position(Point(x1, y1))
