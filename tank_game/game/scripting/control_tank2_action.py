@@ -22,7 +22,7 @@ class ControlTank2Action(Action):
         self._keyboard_service = keyboard_service
 
     def execute(self, cast, script):
-        """Executes the control tank 1 action.
+        """Executes the control tank 2 action.
 
         Args:
             cast (Cast): The cast of Actors in the game.
@@ -32,30 +32,38 @@ class ControlTank2Action(Action):
         # left
         if self._keyboard_service.is_key_down('j'):
             #x = -constants.CELL_SIZE
-            tank1 = cast.get_actors("tanks")[1]
-            position = tank1.get_position()
+            tank2 = cast.get_actors("tanks")[1]
+            position = tank2.get_position()
             x1 = position.get_x()
             y1 = position.get_y()
-            terrain = cast.get_first_actor("terrain")
             x2 = x1 - constants.CELL_SIZE
-            new_position = terrain.calculate_new_position(x2)
-            y2 = new_position.get_y() - constants.HEIGHT_PLAYER1
-            velocity = Point(x2-x1, y2-y1)
-            tank1.set_velocity(velocity)
+            if x2 >= 0:
+                terrain = cast.get_first_actor("terrain")
+                results = terrain.calculate_new_position(x2)
+                y = results["y"]
+                rotation = results["rotation"]
+                y2 = y - constants.HEIGHT_PLAYER2
+                velocity = Point(x2-x1, y2-y1)
+                tank2.set_velocity(velocity)
+                tank2.set_rotation(rotation)
 
         # right
         if self._keyboard_service.is_key_down('l'):
             #x = constants.CELL_SIZE
-            tank1 = cast.get_actors("tanks")[1]
-            position = tank1.get_position()
+            tank2 = cast.get_actors("tanks")[1]
+            position = tank2.get_position()
             x1 = position.get_x()
             y1 = position.get_y()
-            terrain = cast.get_first_actor("terrain")
             x2 = x1 + constants.CELL_SIZE
-            new_position = terrain.calculate_new_position(x2)
-            y2 = new_position.get_y() - constants.HEIGHT_PLAYER1
-            velocity = Point(x2-x1, y2-y1)
-            tank1.set_velocity(velocity)
+            if (x2 + constants.WIDTH_PLAYER2) <= constants.MAX_X:
+                terrain = cast.get_first_actor("terrain")
+                results = terrain.calculate_new_position(x2)
+                y = results["y"]
+                rotation = results["rotation"]
+                y2 = y - constants.HEIGHT_PLAYER2
+                velocity = Point(x2-x1, y2-y1)
+                tank2.set_velocity(velocity)
+                tank2.set_rotation(rotation)
 
         # up
         #if self._keyboard_service.is_key_down('i'):

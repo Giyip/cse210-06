@@ -5,7 +5,7 @@ class Action:
     method, execute(), which should be overridden by derived classes.
     """
 
-    def execute(self, cast, script, callback):
+    def execute(self, cast, script):
         """Executes something that is important in the game. This method should be overriden by 
         derived classes.
 

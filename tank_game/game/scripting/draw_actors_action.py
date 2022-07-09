@@ -1,8 +1,4 @@
 from game.scripting.action import Action
-from game.shared.point import Point
-from game.casting.tank import Tank
-import constants
-import pyray
 
 class DrawActorsAction(Action):
     """
@@ -39,7 +35,7 @@ class DrawActorsAction(Action):
         self._video_service.clear_buffer()
         self._video_service.draw_actors(scores)
         self._video_service.draw_actors(healths)
-        self._video_service.draw_actors(projectiles)
+        self._video_service.draw_projectiles(projectiles)
         self._video_service.draw_tanks(tanks)
         self._video_service.draw_terrain(terrain)
         # self._video_service.draw_actors(messages, True)

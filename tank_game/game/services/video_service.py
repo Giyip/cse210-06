@@ -82,6 +82,39 @@ class VideoService:
         new_position = pyray.Vector2(0, 0)
         pyray.draw_rectangle_pro(rect, new_position, int(rotation), pyray.Color(r, g, b, a))
         
+    def draw_projectiles(self, projectiles):
+        """Draws the given projectiles
+
+        Args:
+            projectiles (list<Projectiles>): the projectiles to draw.
+        """
+        for projectile in projectiles:
+            self._draw_projectile(projectile)
+
+    def _draw_projectile(self, projectile):
+        """Draws the given projectile
+
+        Args:
+            projectile (Projectile): the projectile to draw.
+        """
+        radius = projectile.get_radius()
+        position = projectile.get_position()
+        color = projectile.get_color()
+        self._draw_circle(position, radius, color)
+
+    def _draw_circle(self, position, radius, color):
+        """Draws a cicle according the given values
+
+        Args:
+            position (Point): the circle's position
+            radius: the circle's radius
+            color: the circle's color
+        """
+        x = position.get_x() # center of the circle
+        y = position.get_y() # center of the circle
+        r, g, b, a = color.to_tuple()
+        pyray.draw_circle(x, y, radius, pyray.Color(r,g,b,a))
+    
     def draw_terrain(self, terrain):
         """Draws the terrain for the game
 

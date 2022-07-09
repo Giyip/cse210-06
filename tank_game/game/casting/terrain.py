@@ -39,7 +39,7 @@ class Terrain(Actor):
         Args:
             x (integer): The given x.
         Returns:
-            Point: the calculated position
+            Dict(string, float): the calculated position and the rotation
         """
         y = 0
         rotation = 0
