@@ -10,6 +10,7 @@ from game.scripting.control_tank2_action import ControlTank2Action
 from game.scripting.move_actors_action import MoveActorsAction
 from game.scripting.draw_actors_action import DrawActorsAction
 from game.scripting.projectile_collide_terrain_action import ProjectileCollideTerrainAction
+from game.scripting.projectile_collide_tank_action import ProjectileCollideTankAction
 from game.scripting.handle_mouse_button_pressed import HandleMouseButtonPressed
 from game.director.director import Director
 from game.services.keyboard_service import KeyboardService
@@ -40,7 +41,8 @@ def main():
     size1 = Point(constants.WIDTH_PLAYER1, constants.HEIGHT_PLAYER1)
     tank1 = Tank(size1)
     tank1.set_position(Point(x1, y1))
-    tank1.set_text("tank1")
+    tank1.set_text(constants.ID_PLAYER1)
+    tank1.set_color(constants.YELLOW)
 
     # create position for the player2
     x2 = constants.X_POSITION_PLAYER2 - constants.WIDTH_PLAYER2
@@ -49,7 +51,8 @@ def main():
     size2 = Point(constants.WIDTH_PLAYER2, constants.HEIGHT_PLAYER2)
     tank2 = Tank(size2)
     tank2.set_position(Point(x2, y2))
-    tank2.set_text("tank2")
+    tank2.set_text(constants.ID_PLAYER2)
+    tank2.set_color(constants.GREEN)
 
     # create testing projectile
     #xp = int(x1 + constants.WIDTH_PLAYER1 / 2)
@@ -86,11 +89,12 @@ def main():
     mouse_service = MouseService()
 
     script = Script()
-    script.add_action("input", ControlTank1Action(keyboard_service))
-    script.add_action("input", ControlTank2Action(keyboard_service))
-    script.add_action("input", HandleMouseButtonPressed(mouse_service))
+    #script.add_action("input", ControlTank1Action(keyboard_service))
+    #script.add_action("input", ControlTank2Action(keyboard_service))
+    script.add_action("input", HandleMouseButtonPressed(mouse_service, constants.ID_PLAYER1))
     script.add_action("update", MoveActorsAction())
     script.add_action("update", ProjectileCollideTerrainAction())
+    script.add_action("update", ProjectileCollideTankAction())
     script.add_action("output", DrawActorsAction(video_service))
 
     director = Director(video_service)
