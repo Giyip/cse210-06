@@ -88,6 +88,7 @@ class VideoService:
         Args:
             projectiles (list<Projectiles>): the projectiles to draw.
         """
+        #print(f"np: {len(projectiles)}")
         for projectile in projectiles:
             self._draw_projectile(projectile)
 
@@ -121,9 +122,18 @@ class VideoService:
         Args:
             terrain (Terrain): the terrain to draw.
         """
-        for line in terrain.get_surface():
-            color = terrain.get_color()
-            self._draw_line(line, color)
+        surface =  terrain.get_surface()
+        for i in range(len(surface)):
+            for j in range(len(surface[0])):
+                #if surface[i][j] != 0 and surface[i][j] != 2 and surface[i][j] != 3:
+                color = terrain.get_color()
+                position = surface[i][j].get_position()
+                size = surface[i][j].get_size()
+                rotation = 0
+                #print(f"[{i}][{j}]: ({position.get_x()}, {position.get_y()})")
+                self._draw_rectangle(position, size, rotation, color)
+
+            #self._draw_line(line, color)
 
     def _draw_line(self, line, color):
         """Draws the given line on the screen.

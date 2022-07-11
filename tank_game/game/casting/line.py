@@ -51,15 +51,4 @@ class Line:
         Returns:
             float: the m of the line
         """
-        return self._m
-
-    def calculate_y(self, x):
-        """Calculates y according to the given x.
-
-        Returns:
-            integer: the y value according the given x 
-        """
-        y = int(self._m * x + self._b)
-        return y
-
-    
+        return self._m    

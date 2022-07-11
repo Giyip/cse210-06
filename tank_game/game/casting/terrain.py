@@ -1,6 +1,8 @@
-import math
-
+from turtle import position
+import constants
+#import levels
 from game.casting.actor import Actor
+from game.casting.rectangle import Rectangle
 from game.shared.point import Point
 
 class Terrain(Actor):
@@ -15,10 +17,42 @@ class Terrain(Actor):
     def __init__(self, surface):
         """Constructs a new instance of Terrain"""
         super().__init__()
-        self._surface = surface
+        self._surface = []
+        self._position_tank1 = Point(0, 0)
+        self._position_tank2 = Point(0, 0)
+        self._initialize_surface(surface)
+
+    def _initialize_surface(self, surface):
+        rows = len(surface)
+        cols = len(surface[0])
+        row_size = int(constants.MAX_Y / rows)
+        col_size = int(constants.MAX_X / cols)
+        #print(f"{row_size}, {col_size}")
+        #if col_size == row_size:
+        for i in range(rows):
+            self._surface.append([])
+            for j in range(cols):
+                position = Point(0, 0)
+                size = Point(0, 0)
+                self._surface[i].append(Rectangle(position, size))
+        x = 0
+        for i in range(rows):
+            y = 0
+            for j in range(cols):
+                if surface[i][j] == 1:
+                    position = Point(y, x)
+                    size = Point(col_size, row_size)
+                    #print(f"[{i}][{j}]: ({position.get_x()}, {position.get_y()})")
+                    self._surface[i][j] = Rectangle(position, size)
+                elif surface[i][j] == 2:
+                    self._position_tank1 = Point(y, x)
+                elif surface[i][j] == 3:
+                    self._position_tank2 = Point(y, x)
+                y += row_size
+            x += col_size
 
     def get_surface(self):
-        """Gets the list of lines
+        """Gets the list of rectangles
 
         Returns:
             list<Line>: the list of lines
@@ -33,7 +67,7 @@ class Terrain(Actor):
         """
         self._surface = surface
 
-    def calculate_new_position(self, x):
+    def get_tank_position(self, tank):
         """Calculate a position according to the given x
 
         Args:
@@ -41,41 +75,17 @@ class Terrain(Actor):
         Returns:
             Dict(string, float): the calculated position and the rotation
         """
-        y = 0
-        rotation = 0
-        for line in self._surface:
-            position1 = line.get_position1()
-            x1 = position1.get_x()
-            y1 = position1.get_y()
-            position2 = line.get_position2()
-            x2 = position2.get_x()
-            y2 = position2.get_y()
-            
-            if x >= x1 and x <= x2:
-                y = line.calculate_y(x)
-                rotation = self._calculate_angle(line)
-                break
-        return {"y": y, "rotation": rotation}
+        if tank == constants.ID_PLAYER1:
+            return self._position_tank1
+        else:
+            return self._position_tank2
 
-    def _calculate_angle(self, line):
-        """Calculate the line's angle.
+    def calculate_tank_position(self, tank):
+        """Calculate a position according to the given x
 
         Args:
-            line (Line): The given line.
+            x (integer): The given x.
         Returns:
-            float: the calculated angle
+            Dict(string, float): the calculated position and the rotation
         """
-        position1 = line.get_position1()
-        position2 = line.get_position2()
-        m = line.get_m()
-        x1 = position1.get_x()
-        y1 = position1.get_y()
-        x2 = position2.get_x()
-        y2 = position2.get_y()
-        h = math.sqrt(math.pow(y2 - y1, 2) + math.pow(x2 - x1, 2))
-        aux_angle = math.asin((y2 - y1) / h)
-        return aux_angle * 180 / math.pi
-        #if m >= 0:
-        #    return aux_angle * 180 / math.pi
-        #else:
-        #    return - aux_angle * 180 / math.pi
+        pass

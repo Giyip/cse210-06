@@ -20,6 +20,7 @@ class Tank(Actor):
         super().__init__()
         self._size = size
         self._rotation = 0
+        self._can_move = False
 
     def get_size(self):
         """Gets the tank's size.
@@ -39,9 +40,14 @@ class Tank(Actor):
 
     def move_next(self):
         """Moves the tank to its next position."""
-        super().move_next()
+        if self._can_move:
+            self.set_velocity(Point(0, 5))
+            super().move_next()
         #print(f"pos: {self.get_position().get_x(), self.get_position().get_y()}")
-        self.set_velocity(Point(0,0))
+        #self.set_velocity(Point(0,0))
+
+    def set_can_move(self, can_move):
+        self._can_move = can_move
 
     def get_rectangle(self):
         """Gets the rectangle that will represent the tank, at checking collisions with other actors.

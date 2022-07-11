@@ -21,7 +21,7 @@ class HandleMouseButtonPressed(Action):
                 tank1 = cast.get_actors("tanks")[0]
                 position_t = tank1.get_position()
                 xp = int(position_t.get_x() + constants.WIDTH_PLAYER1 / 2)
-                yp = int(position_t.get_y() - constants.HEIGHT_PLAYER1 / 2) 
+                yp = int(position_t.get_y() - constants.HEIGHT_PLAYER1) 
                 position_p = Point(xp, yp)
                 h = math.sqrt(math.pow(yc - yp, 2) + math.pow(xc - xp, 2))
                 theta = int(math.asin((yc - yp) / h) * 180 / math.pi)
@@ -59,4 +59,8 @@ class HandleMouseButtonPressed(Action):
                 projectile = Projectile(position_p, constants.PROJECTILE_RADIUS, constants.PROJECTILE_EXAMPLE_V0, theta)
                 projectile.set_color(color)
                 self._who_plays = constants.ID_PLAYER1
+            #position = projectile.get_position()
+            #xp = position.get_x()
+            #yp = position.get_y()
+            #print(f"x: {xp}, y: {yp}")
             cast.add_actor("projectiles", projectile)

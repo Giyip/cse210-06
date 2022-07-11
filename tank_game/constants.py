@@ -3,7 +3,7 @@ from game.shared.color import Color
 
 COLUMNS = 40
 ROWS = 20
-CELL_SIZE = 15
+CELL_SIZE = 20
 MAX_X = 900
 MAX_Y = 600
 FRAME_RATE = 30
@@ -31,4 +31,3 @@ TIME_RATE = 0.03
 PROJECTILE_POWER = 10
 
 PLAYERS_HEALTH = 100
-
