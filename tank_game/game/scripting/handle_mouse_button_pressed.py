@@ -10,7 +10,7 @@ class HandleMouseButtonPressed(Action):
         self._mouse_service = mouse_service
         self._who_plays = who_plays
 
-    def execute(self, cast, script):
+    def execute(self, cast, script, scene_manager):
         if self._mouse_service.is_mouse_button_left_pressed():
             click_position = self._mouse_service.get_click_position()
             xc = click_position.get_x()

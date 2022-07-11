@@ -21,7 +21,7 @@ class ControlTank2Action(Action):
         """
         self._keyboard_service = keyboard_service
 
-    def execute(self, cast, script):
+    def execute(self, cast, script, scene_manager):
         """Executes the control tank 2 action.
 
         Args:

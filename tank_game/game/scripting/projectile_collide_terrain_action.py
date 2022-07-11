@@ -10,7 +10,7 @@ class ProjectileCollideTerrainAction(Action):
 
     The responsibility of ProjectileCollideTerrainAction is to check the collisions between the projectile and the terrain.
     """
-    def execute(self, cast, script):
+    def execute(self, cast, script, scene_manager):
         """Executes the projectile collide terrain action.
 
         Args:

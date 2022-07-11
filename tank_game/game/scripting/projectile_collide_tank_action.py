@@ -11,22 +11,22 @@ class ProjectileCollideTankAction(Action):
     """
 
     def __init__(self):
-        self._is_game_over = False
-        self._winner = ""
+        #self._is_game_over = False
+        #self._winner = ""
         #self._destroy_projectile = False
+        pass
 
-
-    def execute(self, cast, script):
+    def execute(self, cast, script, scene_manager):
         """Executes the projectile collide tank action.
 
         Args:
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
-        if not self._is_game_over:
-            self._handle_projectile_collide_tank(cast)
+        #if not self._is_game_over:
+        self._handle_projectile_collide_tank(cast, scene_manager)
         
-    def _handle_projectile_collide_tank(self, cast):
+    def _handle_projectile_collide_tank(self, cast, scene_manager):
         """Handles the projectile collide tank action.
 
         Args:
@@ -52,7 +52,8 @@ class ProjectileCollideTankAction(Action):
                         if value <= 0:
                             self._winner = constants.ID_PLAYER2
                             scores[1].add_points(1)
-                            healths[0].update_value(constants.PLAYERS_HEALTH)
+                            healths[0].update_value(0)
+                            scene_manager.change_scene = True
                     elif tank.get_text() == constants.ID_PLAYER2:
                         value = healths[1].get_value()
                         value -= constants.PROJECTILE_POWER
@@ -60,7 +61,8 @@ class ProjectileCollideTankAction(Action):
                         if value <= 0:
                             self._winner = constants.ID_PLAYER1
                             scores[0].add_points(1)
-                            healths[1].update_value(constants.PLAYERS_HEALTH)
+                            healths[1].update_value(0)
+                            scene_manager.change_scene = True
                     destroy_projectile = True
                     break
             if destroy_projectile:
