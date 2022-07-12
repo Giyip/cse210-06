@@ -9,7 +9,7 @@ class MoveActorsAction(Action):
     than zero.
     """
 
-    def execute(self, cast, script):
+    def execute(self, cast, script, scene_manager):
         """Executes the move actors action.
 
         Args:

@@ -1,3 +1,7 @@
+from game.casting.cast import Cast
+from game.scripting.script import Script
+from game.director.scene_manager import SceneManager
+
 class Director:
     """A person who directs the game. 
 
@@ -7,15 +11,18 @@ class Director:
         _video_service (VideoService): For providing video output.
     """
 
-    def __init__(self, video_service):
+    def __init__(self):
         """Constructs a new Director using the specified video service.
 
         Args:
             video_service (VideoService): An instance of VideoService.
         """
-        self._video_service = video_service
+        self._cast = Cast()
+        self._script = Script()
+        self._scene_manager = SceneManager()
+        self._video_service = self._scene_manager.VIDEO_SERVICE
 
-    def start_game(self, cast, script):
+    def start_game(self):
         """Starts the game using the given cast and script. Runs the main game loop.
 
         Args:
@@ -23,13 +30,16 @@ class Director:
             script (Script): The script of actions.
         """
         self._video_service.open_window()
+        self._scene_manager.prepare_scene(self._cast, self._script)
         while self._video_service.is_window_open():
-            self._execute_actions("input", cast, script)
-            self._execute_actions("update", cast, script)
-            self._execute_actions("output", cast, script)
+            self._execute_actions("input")
+            self._execute_actions("update")
+            self._execute_actions("output")
+            if self._scene_manager.game_over:
+                break
         self._video_service.close_window()
 
-    def _execute_actions(self, group, cast, script):
+    def _execute_actions(self, group):
         """Calls execute for each action in the given group.
 
         Args:
@@ -37,6 +47,6 @@ class Director:
             cast (Cast): The cast of actors.
             script (Script): The script of actions.
         """
-        actions = script.get_actions(group)
+        actions = self._script.get_actions(group)
         for action in actions:
-            action.execute(cast, script)
+            action.execute(self._cast, self._script, self._scene_manager)

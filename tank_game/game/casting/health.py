@@ -17,15 +17,15 @@ class Health(Actor):
             Constructor for a Health instance
         """
         super().__init__()
-        self._value = health
-        self.update_value(0)
+        self._value = 0
+        self.update_value(health)
 
     def get_value(self):
         """It returns the health's value
         Returns:
             integer: the health's value
         """
-        return f"{self._value}%"
+        return self._value
     
     def update_value(self, value):
         """Updates the health's value
@@ -33,5 +33,5 @@ class Health(Actor):
         Args:
             value (integer): The given value.
         """
-        self._value -= value
+        self._value = value
         self.set_text(f"{self._value}%")

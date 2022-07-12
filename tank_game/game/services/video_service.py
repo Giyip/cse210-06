@@ -46,9 +46,27 @@ class VideoService:
         position = tank.get_position()
         size = tank.get_size()
         color = tank.get_color()
-        self._draw_rectangle(position, size, color)
+        rotation = tank.get_rotation()
+        self._draw_rectangle(position, size, rotation, color)
 
-    def _draw_rectangle(self, position, size, color):
+    def draw_healths(self, healths):
+        """Draws the given healths
+
+        Args:
+            healths (list<Health>): the healths to draw.
+        """
+        for health in healths:
+            self._draw_health(health)
+
+    def _draw_health(self, health):
+        """Draws the given player's health
+
+        Args:
+            health (Health): the health to draw.
+        """
+        pass
+
+    def _draw_rectangle(self, position, size, rotation, color):
         """Draws a rectangle according to the given values
         Args:
             position (Point): The position of the rectangle.
@@ -60,27 +78,64 @@ class VideoService:
         width = size.get_x()
         height = size.get_y()
         r, g, b, a = color.to_tuple()
-        #extracted_color = color.to_tuple()
-        #c = pyray.Color(extracted_color[0],extracted_color[1],extracted_color[2],extracted_color[3])
-        #print(f"x: {x}")
-        #print(f"y: {y}")
         rect = pyray.Rectangle(x, y, width, height)
         new_position = pyray.Vector2(0, 0)
-        pyray.draw_rectangle_pro(
-            rect, new_position, 0, pyray.Color(r, g, b, a))
-        #pyray.draw_rectangle(int(x), int(y), width, height, pyray.Color(r, g, b, a))
+        pyray.draw_rectangle_pro(rect, new_position, int(rotation), pyray.Color(r, g, b, a))
+        
+    def draw_projectiles(self, projectiles):
+        """Draws the given projectiles
 
+        Args:
+            projectiles (list<Projectiles>): the projectiles to draw.
+        """
+        #print(f"np: {len(projectiles)}")
+        for projectile in projectiles:
+            self._draw_projectile(projectile)
+
+    def _draw_projectile(self, projectile):
+        """Draws the given projectile
+
+        Args:
+            projectile (Projectile): the projectile to draw.
+        """
+        radius = projectile.get_radius()
+        position = projectile.get_position()
+        color = projectile.get_color()
+        self._draw_circle(position, radius, color)
+
+    def _draw_circle(self, position, radius, color):
+        """Draws a cicle according the given values
+
+        Args:
+            position (Point): the circle's position
+            radius: the circle's radius
+            color: the circle's color
+        """
+        x = position.get_x() # center of the circle
+        y = position.get_y() # center of the circle
+        r, g, b, a = color.to_tuple()
+        pyray.draw_circle(x, y, radius, pyray.Color(r,g,b,a))
+    
     def draw_terrain(self, terrain):
         """Draws the terrain for the game
 
         Args:
             terrain (Terrain): the terrain to draw.
         """
-        for line in terrain.get_surface():
-            color = terrain.get_color()
-            self._draw_line(line, color)
+        surface =  terrain.get_surface()
+        for i in range(len(surface)):
+            for j in range(len(surface[0])):
+                #if surface[i][j] != 0 and surface[i][j] != 2 and surface[i][j] != 3:
+                color = terrain.get_color()
+                position = surface[i][j].get_position()
+                size = surface[i][j].get_size()
+                rotation = 0
+                #print(f"[{i}][{j}]: ({position.get_x()}, {position.get_y()})")
+                self._draw_rectangle(position, size, rotation, color)
 
-    def _draw_line(self, line, color):
+            #self._draw_line(line, color)
+
+    def draw_line(self, line, color):
         """Draws the given line on the screen.
 
         Args:

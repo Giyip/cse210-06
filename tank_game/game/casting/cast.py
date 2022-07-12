@@ -73,3 +73,11 @@ class Cast:
         """
         if group in self._actors:
             self._actors[group].remove(actor)
+    
+    def remove_actors(self, group):
+        """Removes all the actors from the given group.
+
+        Args:
+            group (string): The name of the group.
+        """
+        self._actors[group] = []
