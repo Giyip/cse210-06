@@ -8,15 +8,16 @@ class HandleMouseButtonPressed(Action):
 
     def __init__(self, mouse_service, who_plays):
         self._mouse_service = mouse_service
-        self._who_plays = who_plays
+        # self._who_plays = who_plays
 
     def execute(self, cast, script, scene_manager):
+        player = scene_manager.who_plays
         if self._mouse_service.is_mouse_button_left_pressed():
             click_position = self._mouse_service.get_click_position()
             xc = click_position.get_x()
             yc = click_position.get_y()
             #print(f"x: {xc}, y: {yc}")
-            if self._who_plays == constants.ID_PLAYER1:
+            if player == constants.ID_PLAYER1:
                 # create  projectile
                 tank1 = cast.get_actors("tanks")[0]
                 position_t = tank1.get_position()
@@ -36,7 +37,7 @@ class HandleMouseButtonPressed(Action):
                 color = tank1.get_color()
                 projectile = Projectile(position_p, constants.PROJECTILE_RADIUS, constants.PROJECTILE_EXAMPLE_V0, theta)
                 projectile.set_color(color)
-                self._who_plays = constants.ID_PLAYER2
+                scene_manager.who_plays = constants.ID_PLAYER2
                 #cast.add_actor("projectiles", projectile)
             else:
                 # create  projectile
@@ -58,7 +59,7 @@ class HandleMouseButtonPressed(Action):
                 color = tank2.get_color()
                 projectile = Projectile(position_p, constants.PROJECTILE_RADIUS, constants.PROJECTILE_EXAMPLE_V0, theta)
                 projectile.set_color(color)
-                self._who_plays = constants.ID_PLAYER1
+                scene_manager.who_plays = constants.ID_PLAYER1
             #position = projectile.get_position()
             #xp = position.get_x()
             #yp = position.get_y()

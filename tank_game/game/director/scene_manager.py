@@ -17,6 +17,7 @@ from game.services.mouse_service import MouseService
 from game.shared.point import Point
 from game.casting.terrain import Terrain
 from game.scripting.tank_collide_terrain_action import TankCollideTerrainAction
+from game.scripting.player_turret import PlayerTurret
 
 class SceneManager:
 
@@ -27,6 +28,7 @@ class SceneManager:
         self.game_over = False
         self.scene = 0
         self.change_scene = False
+        self.who_plays = constants.ID_PLAYER1
 
     def prepare_scene(self, cast, script):
         """Prepares a new scene
@@ -117,6 +119,7 @@ class SceneManager:
         #script.add_action("input", ControlTank1Action(self._KEYBOARD_SERVICE))
         #script.add_action("input", ControlTank2Action(self._KEYBOARD_SERVICE))
         script.add_action("input", HandleMouseButtonPressed(self.MOUSE_SERVICE, constants.ID_PLAYER1))
+        script.add_action("input", PlayerTurret(self.MOUSE_SERVICE, self.VIDEO_SERVICE))
         script.add_action("update", MoveActorsAction())
         script.add_action("update", ProjectileCollideTankAction())
         script.add_action("update", ProjectileCollideTerrainAction())

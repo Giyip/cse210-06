@@ -1,5 +1,3 @@
-
-
 class Line:
     """A line entity representing a piece of the terrain
 
@@ -18,7 +16,10 @@ class Line:
         y1 = self._position1.get_y()
         x2 = self._position2.get_x()
         y2 = self._position2.get_y()
-        self._m = (y2 - y1) / (x2 - x1)
+        if x2 - x1 != 0:
+            self._m = (y2 - y1) / (x2 - x1)
+        else:
+            self._m = (y2 - y1) / 1
         self._b = y1 - self._m * x1
 
     def get_position1(self):
@@ -51,4 +52,22 @@ class Line:
         Returns:
             float: the m of the line
         """
-        return self._m    
+        return self._m
+    
+    def calculate_y(self, x):
+        """Calculates y according to the given x.
+        Returns:
+            integer: the y value according the given x 
+        """
+        x1 = self._position1.get_x()
+        y1 = self._position1.get_y()
+        x2 = self._position2.get_x()
+        y2 = self._position2.get_y()
+        if x2 - x1 != 0:
+            m = (y2 - y1) / (x2 - x1)
+        else:
+            m = (y2 - y1) / 1
+        # m = (y2 - y1) / (x2 - x1)
+        b = y1 - m * x1
+        y = int(m*x + b)
+        return y

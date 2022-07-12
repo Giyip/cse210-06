@@ -11,7 +11,7 @@ class MouseService:
         Return:
             boolean: if the mouse's left button was pressed
         """
-        return pyray.is_mouse_button_pressed(pyray.MouseButton.MOUSE_BUTTON_LEFT)
+        return pyray.is_mouse_button_pressed(pyray.MOUSE_BUTTON_LEFT)
 
     def get_click_position(self):
         """Gets the click's position

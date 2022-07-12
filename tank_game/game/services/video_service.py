@@ -135,7 +135,7 @@ class VideoService:
 
             #self._draw_line(line, color)
 
-    def _draw_line(self, line, color):
+    def draw_line(self, line, color):
         """Draws the given line on the screen.
 
         Args:
