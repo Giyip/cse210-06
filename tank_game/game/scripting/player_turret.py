@@ -26,8 +26,6 @@ class PlayerTurret(Action):
             x = start.get_x() + 50
         y = line.calculate_y(x)
         end = Point(x, y)
-        print(f"{end.get_x()}, {end.get_y()} end")
-        print(f"{start.get_x()}, {start.get_y()} start")
         line = Line(start, end)
         # self._video_service.draw_line(line, color)
         script_reset = script.get_actions("output")[0]
