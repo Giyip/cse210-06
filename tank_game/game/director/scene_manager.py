@@ -17,7 +17,7 @@ from game.services.mouse_service import MouseService
 from game.shared.point import Point
 from game.casting.terrain import Terrain
 from game.scripting.tank_collide_terrain_action import TankCollideTerrainAction
-from game.scripting.player_turret import PlayerTurret
+from game.scripting.generate_aim_action import GenerateAimAction
 
 class SceneManager:
 
@@ -29,6 +29,7 @@ class SceneManager:
         self.scene = 0
         self.change_scene = False
         self.who_plays = constants.ID_PLAYER1
+        self.projectile_projections = []
 
     def prepare_scene(self, cast, script):
         """Prepares a new scene
@@ -37,7 +38,6 @@ class SceneManager:
             cast (Cast): the cast of actors
             script (Script): the script of actions
         """
-        #if levels.has_key(self.scene):
         if self.scene == 0:
             self._add_terrain(cast)
             self._add_tanks(cast)
@@ -50,8 +50,6 @@ class SceneManager:
             self._add_terrain(cast)
             self._add_tanks(cast)
             self._reset_healths(cast)
-        #else:
-        #    self.manage_game_over(cast, script)
 
     def _add_tanks(self, cast):
         """Adds tanks on a new scene
@@ -108,6 +106,7 @@ class SceneManager:
         """
         terrain = Terrain(levels.LEVELS[self.scene])
         terrain.set_text("terrain")
+        terrain.set_color(constants.SIENNA)
         cast.add_actor("terrain", terrain)
 
     def _add_actions(self, script):
@@ -119,7 +118,7 @@ class SceneManager:
         #script.add_action("input", ControlTank1Action(self._KEYBOARD_SERVICE))
         #script.add_action("input", ControlTank2Action(self._KEYBOARD_SERVICE))
         script.add_action("input", HandleMouseButtonPressed(self.MOUSE_SERVICE, constants.ID_PLAYER1))
-        script.add_action("input", PlayerTurret(self.MOUSE_SERVICE, self.VIDEO_SERVICE))
+        script.add_action("input", GenerateAimAction(self.MOUSE_SERVICE))
         script.add_action("update", MoveActorsAction())
         script.add_action("update", ProjectileCollideTankAction())
         script.add_action("update", ProjectileCollideTerrainAction())

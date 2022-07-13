@@ -50,12 +50,14 @@ class DrawActorsAction(Action):
                     health = healths[1]
                     health.update_value(0)
                 scene_manager.change_scene = True
+
         self._video_service.clear_buffer()
+        self._video_service.draw_terrain(terrain)
         self._video_service.draw_actors(scores)
         self._video_service.draw_actors(healths)
         self._video_service.draw_projectiles(projectiles)
         self._video_service.draw_tanks(tanks)
-        self._video_service.draw_terrain(terrain)
+        self._video_service.draw_projectiles(scene_manager.projectile_projections)
         # self._video_service.draw_actors(messages, True)
         self._video_service.flush_buffer()
 
@@ -92,24 +94,3 @@ class DrawActorsAction(Action):
             # self._video_service.draw_actors(messages, True)
             self._video_service.flush_buffer()
             scene_manager.change_scene = False
-
-    def draw_line(self, cast, line, color):
-        """Resets the window for a new scene
-
-        Args:
-            cast (Cast): The cast of Actors in the game.
-            script (Script): The script of Actions in the game.
-        """
-
-        scores = cast.get_actors("scores")
-        healths = cast.get_actors("healths")
-        tanks = cast.get_actors("tanks")
-        terrain = cast.get_first_actor("terrain")
-
-        self._video_service.clear_buffer()
-        self._video_service.draw_actors(scores)
-        self._video_service.draw_actors(healths)
-        self._video_service.draw_tanks(tanks)
-        self._video_service.draw_terrain(terrain)
-        self._video_service.draw_line(line, color)
-        self._video_service.flush_buffer()

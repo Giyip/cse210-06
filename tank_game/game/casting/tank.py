@@ -1,4 +1,3 @@
-#import imp
 from turtle import width
 import pyray
 from game.casting.actor import Actor
@@ -43,8 +42,6 @@ class Tank(Actor):
         if self._can_move:
             self.set_velocity(Point(0, 5))
             super().move_next()
-        #print(f"pos: {self.get_position().get_x(), self.get_position().get_y()}")
-        #self.set_velocity(Point(0,0))
 
     def set_can_move(self, can_move):
         self._can_move = can_move

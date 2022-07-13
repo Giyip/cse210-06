@@ -1,7 +1,5 @@
-import constants
 import pyray
 from game.scripting.action import Action
-from game.casting.rectangle import Rectangle
 from game.shared.point import Point
 
 class TankCollideTerrainAction(Action):
@@ -22,7 +20,6 @@ class TankCollideTerrainAction(Action):
         
         for tank in tanks:
             can_move = True
-            #for line in terrain.get_surface():
             position_t = tank.get_position()
             size_t = tank.get_size()
             xt = position_t.get_x()
@@ -33,7 +30,6 @@ class TankCollideTerrainAction(Action):
             surface = terrain.get_surface()
             for i in range(len(surface)):
                 for j in range(len(surface[0])):
-                    #if surface[i][j] != 0 and surface[i][j] != 2 and surface[i][j] != 3:
                     position_r = surface[i][j].get_position()
                     size_r = surface[i][j].get_size()
                     xr = position_r.get_x()

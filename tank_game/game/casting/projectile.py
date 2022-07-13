@@ -20,13 +20,10 @@ class Projectile(Actor):
         self._initial_position = position
         self.set_position(position)
         self._v0 = v0
-        #self._angle0 = angle0
         angle0_rad = math.radians(angle0)
         self._v0x = v0 * math.cos(angle0_rad)
         self._v0y = v0 * math.sin(angle0_rad)
         self._t = 0
-        #self._t_s = self._v0y / constants.GRAVITY
-        #self._t_f = self._t_s * 2.5
 
     def get_radius(self):
         """Get the value of the radius of the projectile
@@ -38,16 +35,26 @@ class Projectile(Actor):
     def move_next(self):
         """Moves the projectile to its new position
         """
-        #if self._t <= self._t_f:
         self._t += constants.TIME_RATE
         x = self._calculate_x()
         y = - self._calculate_y()
         velocity = Point(int(x), int(y))
-        #print(f"t: {self._t}, x: {int(x)}, y: {int(y)}")
         self.set_velocity(velocity)
         x = (self._initial_position.get_x() + self._velocity.get_x())
         y = (self._initial_position.get_y() + self._velocity.get_y()) 
         self.set_position(Point(x, y))
+
+    def calculate_projection_position(self, t):
+        """Calculates a position for a projection
+        Returns: 
+            Point: calculated position for a projection
+        """
+        x = self._v0x * t
+        y = - (self._v0y * t - (constants.GRAVITY * math.pow(t, 2) / 2))
+        x = (self._initial_position.get_x() + int(x))
+        y = (self._initial_position.get_y() + int(y)) 
+        return Point(x, y)
+
 
     def _calculate_x(self):
         """Calculate the movement in the x axis
@@ -62,10 +69,5 @@ class Projectile(Actor):
             y (float): the movement in the y axis
         """
         y = 0
-        
         y = self._v0y * self._t - (constants.GRAVITY * math.pow(self._t, 2) / 2)
-        #if self._t >= self._t_s:
-        #    y = (self._v0y * self._t) + (constants.GRAVITY * math.pow(self._t, 2) / 2)
-        #else:
-        #    y = (self._v0y * self._t) - (constants.GRAVITY * math.pow(self._t, 2) / 2)
         return y

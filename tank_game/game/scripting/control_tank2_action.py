@@ -31,7 +31,6 @@ class ControlTank2Action(Action):
         x = 0
         # left
         if self._keyboard_service.is_key_down('j'):
-            #x = -constants.CELL_SIZE
             tank2 = cast.get_actors("tanks")[1]
             position = tank2.get_position()
             x1 = position.get_x()
@@ -49,7 +48,6 @@ class ControlTank2Action(Action):
 
         # right
         if self._keyboard_service.is_key_down('l'):
-            #x = constants.CELL_SIZE
             tank2 = cast.get_actors("tanks")[1]
             position = tank2.get_position()
             x1 = position.get_x()
@@ -64,18 +62,3 @@ class ControlTank2Action(Action):
                 velocity = Point(x2-x1, y2-y1)
                 tank2.set_velocity(velocity)
                 tank2.set_rotation(rotation)
-
-        # up
-        #if self._keyboard_service.is_key_down('i'):
-        #    self._direction = Point(0, -constants.CELL_SIZE)
-
-        # down
-        #if self._keyboard_service.is_key_down('k'):
-        #    self._direction = Point(0, constants.CELL_SIZE)
-
-        #if x != 0:
-        #    tank1 = cast.get_actors("tanks")[0]
-        #    position = tank1.get_position()
-        #    terrain = cast.get_first_actor("terrain")
-        #    velocity = terrain.calculate_new_position(position.get_x() + x)
-        #    tank1.set_velocity(velocity)

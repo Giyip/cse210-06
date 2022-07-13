@@ -11,9 +11,6 @@ class ProjectileCollideTankAction(Action):
     """
 
     def __init__(self):
-        #self._is_game_over = False
-        #self._winner = ""
-        #self._destroy_projectile = False
         pass
 
     def execute(self, cast, script, scene_manager):
@@ -23,7 +20,6 @@ class ProjectileCollideTankAction(Action):
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
-        #if not self._is_game_over:
         self._handle_projectile_collide_tank(cast, scene_manager)
         
     def _handle_projectile_collide_tank(self, cast, scene_manager):

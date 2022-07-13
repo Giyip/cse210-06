@@ -18,5 +18,4 @@ class MoveActorsAction(Action):
         """
         actors = cast.get_all_actors()
         for actor in actors:
-            #print(actor.get_text())
             actor.move_next()

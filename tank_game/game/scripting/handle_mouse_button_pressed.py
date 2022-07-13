@@ -13,6 +13,7 @@ class HandleMouseButtonPressed(Action):
     def execute(self, cast, script, scene_manager):
         player = scene_manager.who_plays
         if self._mouse_service.is_mouse_button_left_pressed():
+            scene_manager.projecile_projections = []
             click_position = self._mouse_service.get_click_position()
             xc = click_position.get_x()
             yc = click_position.get_y()

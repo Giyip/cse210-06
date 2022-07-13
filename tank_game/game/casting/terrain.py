@@ -1,6 +1,5 @@
 from turtle import position
 import constants
-#import levels
 from game.casting.actor import Actor
 from game.casting.rectangle import Rectangle
 from game.shared.point import Point
@@ -27,8 +26,6 @@ class Terrain(Actor):
         cols = len(surface[0])
         row_size = int(constants.MAX_Y / rows)
         col_size = int(constants.MAX_X / cols)
-        #print(f"{row_size}, {col_size}")
-        #if col_size == row_size:
         for i in range(rows):
             self._surface.append([])
             for j in range(cols):
@@ -42,7 +39,6 @@ class Terrain(Actor):
                 if surface[i][j] == 1:
                     position = Point(y, x)
                     size = Point(col_size, row_size)
-                    #print(f"[{i}][{j}]: ({position.get_x()}, {position.get_y()})")
                     self._surface[i][j] = Rectangle(position, size)
                 elif surface[i][j] == 2:
                     self._position_tank1 = Point(y, x)

@@ -21,7 +21,6 @@ class ProjectileCollideTerrainAction(Action):
         terrain = cast.get_first_actor("terrain")
         remove_projectile = False
         for projectile in projectiles:
-            #for line in terrain.get_surface():
             position_p = projectile.get_position()
             x = position_p.get_x()
             y = position_p.get_y() 
@@ -36,7 +35,6 @@ class ProjectileCollideTerrainAction(Action):
             surface = terrain.get_surface()
             for i in range(len(surface)):
                 for j in range(len(surface[0])):
-                    #if surface[i][j] != 0 and surface[i][j] != 2 and surface[i][j] != 3:
                     position = surface[i][j].get_position()
                     size = surface[i][j].get_size()
                     xt = position.get_x()
@@ -53,15 +51,3 @@ class ProjectileCollideTerrainAction(Action):
             if remove_projectile:        
                 cast.remove_actor("projectiles", projectile)
                 remove_projectile = False
-            #results = terrain.calculate_new_position(x)
-            #x_terrain = x
-            #y_terrain = results["y"]
-            #point = pyray.Vector2(x_terrain, y_terrain)
-            #aux_rect = pyray.Rectangle(x_terrain - 5, y_terrain, 10, constants.MAX_Y - y_terrain)
-            #center = pyray.Vector2(x, y)
-            #radius = projectile.get_radius()
-            #if pyray.check_collision_point_circle(point, center, radius):
-            #if pyray.check_collision_circle_rec(center, radius, aux_rect):
-            #    cast.remove_actor("projectiles", projectile)
-            #elif x >= constants.MAX_X or x <= 0:
-            #    cast.remove_actor("projectiles", projectile)

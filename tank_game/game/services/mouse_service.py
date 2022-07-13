@@ -23,3 +23,14 @@ class MouseService:
         x = click_position.x
         y = click_position.y
         return Point(int(x), int(y))
+
+    def get_cursor_position(self):
+        """Gets the mouse's cursor position
+        
+        Return:
+            Point: the mouse's cursor position
+        """
+        cursor_position = pyray.get_mouse_position()
+        x = cursor_position.x
+        y = cursor_position.y
+        return Point(int(x), int(y))
