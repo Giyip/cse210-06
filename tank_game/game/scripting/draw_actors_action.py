@@ -31,7 +31,7 @@ class DrawActorsAction(Action):
         """
         welcome_message = cast.get_actors("welcome")
         level_winner = cast.get_actors("LevelWinner")
-        end_message = cast.get_actors("end")
+        #end_message = cast.get_actors("end")
         scores = cast.get_actors("scores")
         healths = cast.get_actors("healths")
         projectiles = cast.get_actors("projectiles")
@@ -60,7 +60,7 @@ class DrawActorsAction(Action):
         self._video_service.draw_actors(scores)
         self._video_service.draw_actors(welcome_message)
         self._video_service.draw_actors(level_winner)
-        self._video_service.draw_actors(end_message)
+        #self._video_service.draw_actors(end_message)
         self._video_service.draw_actors(healths)
         self._video_service.draw_projectiles(projectiles)
         self._video_service.draw_tanks(tanks)
@@ -91,6 +91,8 @@ class DrawActorsAction(Action):
             healths = cast.get_actors("healths")
             tanks = cast.get_actors("tanks")
             terrain = cast.get_first_actor("terrain")
+            end_message = cast.get_actors("end")
+
             # messages = cast.get_actors("messages")
 
             self._video_service.clear_buffer()
@@ -98,6 +100,11 @@ class DrawActorsAction(Action):
             self._video_service.draw_actors(healths)
             self._video_service.draw_tanks(tanks)
             self._video_service.draw_terrain(terrain)
+            self._video_service.draw_actors(end_message)
+            
             # self._video_service.draw_actors(messages, True)
             self._video_service.flush_buffer()
             scene_manager.change_scene = False
+            if scene_manager.scene == 10:
+                scene_manager.game_over = True
+                pyray.wait_time(5000)
