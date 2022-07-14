@@ -1,5 +1,6 @@
 import constants
 import levels
+import pyray
 
 from game.casting.score import Score
 from game.casting.health import Health
@@ -16,6 +17,9 @@ from game.services.video_service import VideoService
 from game.services.mouse_service import MouseService
 from game.shared.point import Point
 from game.casting.terrain import Terrain
+from game.casting.welcome import Welcome
+from game.casting.level_winner import LevelWinner
+from game.casting.end import End
 from game.scripting.tank_collide_terrain_action import TankCollideTerrainAction
 from game.scripting.generate_aim_action import GenerateAimAction
 
@@ -30,6 +34,48 @@ class SceneManager:
         self.change_scene = False
         self.who_plays = constants.ID_PLAYER1
         self.projectile_projections = []
+        self.welcome_message = Welcome("Welcome! Use the mouse to aim and click to lauch projectile.")
+        self.level_winner = LevelWinner(constants.ID_PLAYER1)
+        self.end_message = End(constants.ID_PLAYER1)
+
+    def _add_welcome_message(self, cast):
+        """Prepares welcome message
+        Args:
+            cast (Cast): the cast of actors
+        """
+        self.welcome_message.set_position(Point(260, 130))
+        cast.add_actor("welcome", self.welcome_message)
+
+    def _remove_welcome_message(self):
+        """Removes welcome message
+        """
+        self.welcome_message.remove_message()
+
+    def _add_level_winner(self, cast):
+        """Prepares level message
+        Args:
+            cast (Cast): the cast of actors
+        """
+        healths = cast.get_actors("healths")
+        if healths[0].get_value() == 0:
+            self.level_winner.update_winner(constants.ID_PLAYER2)
+        else:
+            self.level_winner.update_winner(constants.ID_PLAYER1)
+        self.level_winner.set_position(Point(360, 130))
+        cast.add_actor("LevelWinner", self.level_winner)
+
+    def _remove_level_message(self):
+        """Removes level message
+            """
+        self.level_winner.remove_message()
+
+    def _add_end_message(self, cast):
+        """Prepares end message
+            Args:
+                cast (Cast): the cast of actors
+            """
+        self.end_message.set_position(Point(360, 130))
+        cast.add_actor("end", self.end_message)
 
     def prepare_scene(self, cast, script):
         """Prepares a new scene
@@ -42,11 +88,18 @@ class SceneManager:
             self._add_terrain(cast)
             self._add_tanks(cast)
             self._add_stats(cast)
+            self._add_welcome_message(cast)
             self._add_actions(script)
         else:
             cast.remove_actors("terrain")
             cast.remove_actors("tanks")
             cast.remove_actors("projectiles")
+            self._remove_welcome_message()
+            if self.scene < 10:
+                self._add_level_winner(cast)
+            else:
+                self._remove_level_message()
+                self._add_end_message(cast)
             self._add_terrain(cast)
             self._add_tanks(cast)
             self._reset_healths(cast)
@@ -71,9 +124,16 @@ class SceneManager:
         tank2.set_position(position_tank2)
         tank2.set_text(constants.ID_PLAYER2)
         tank2.set_color(constants.GREEN)
-    
-        cast.add_actor("tanks", tank1)
-        cast.add_actor("tanks", tank2)
+
+        if self.scene == 10:
+            scores = cast.get_actors("scores")
+            if scores[0].get_points() < scores[1].get_points():
+                cast.add_actor("tanks", tank1)
+            else:
+                cast.add_actor("tanks", tank2)
+        else:
+            cast.add_actor("tanks", tank1)
+            cast.add_actor("tanks", tank2)
 
     def _add_stats(self, cast):
         """Adds stats on a new scene
@@ -146,3 +206,5 @@ class SceneManager:
             script (Script): the script of actions
         """
         pass
+        # end = End(levels.LEVELS[self.scene])
+        # cast.add_actor("end", end)
