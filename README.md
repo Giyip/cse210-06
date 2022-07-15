@@ -16,7 +16,7 @@ Tank is played according to the following rules:
 ## Interface
 
 ---
-<img src="images/tank_game.png" width="830">
+<img src="images/tank_game.jpg" width="830">
 
 ---
 ## Getting Started
