@@ -23,7 +23,7 @@ class HandleMouseButtonPressed(Action):
                 tank1 = cast.get_actors("tanks")[0]
                 position_t = tank1.get_position()
                 xp = int(position_t.get_x() + constants.WIDTH_PLAYER1 / 2)
-                yp = int(position_t.get_y() - constants.HEIGHT_PLAYER1) 
+                yp = int(position_t.get_y() - constants.HEIGHT_PLAYER1 / 2) 
                 position_p = Point(xp, yp)
                 h = math.sqrt(math.pow(yc - yp, 2) + math.pow(xc - xp, 2))
                 theta = int(math.asin((yc - yp) / h) * 180 / math.pi)
